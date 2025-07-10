@@ -582,6 +582,16 @@
     <para role="reference">&lt; <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://earth-info.nga.mil/GandG/publications/tr8350.2/tr8350_2.html"></link>&gt;</para>
     <para>JSON-LD 1.1 A JSON-based Serialization for Linked Data</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://json-ld.org/spec/latest/json-ld/"></link>&gt;</para>
+    <para xml:id="RFC3410">RFC 3410, Introduction and Applicability Statements for Internet-Standard Management Framework</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3410"></link>&gt;</para>
+    <para xml:id="RFC3411">RFC 3411, An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3411"></link>&gt;</para>
+    <para xml:id="RFC3414">RFC 3414, User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3414"></link>&gt;</para>
+    <para xml:id="RFC3826">RFC 3826, The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3826"></link>&gt;</para>
+    <para xml:id="RFC7680">RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc7860"></link>&gt;</para>
   </chapter>
   <chapter>
     <title>Terms and Definitions</title>
@@ -935,7 +945,14 @@
                 <para>Security Assertion Markup Language </para>
               </entry>
             </row>
-            <row>
+             <row>
+              <entry valign="middle">
+                <para>SNMP</para>
+              </entry>
+              <entry valign="middle">
+                <para>Simple Network Management Protocol </para>
+              </entry>
+            </row>           <row>
               <entry valign="middle">
                 <para>SOAP</para>
               </entry>
@@ -5778,7 +5795,7 @@ onvif://www.onvif.org/name/ARV-453
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-256:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMACSHA256AuthProtocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The authentication key length is 32 octets.
+              <emphasis role="bold">HMAC-SHA-256:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC192SHA256AuthProtocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The authentication key length is 32 octets.
             </para>
           </listitem>
         </itemizedlist>
@@ -5788,12 +5805,12 @@ onvif://www.onvif.org/name/ARV-453
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-384:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMACSHA384AuthProtocol</literal>). The authentication key length is 48 octets.
+              <emphasis role="bold">HMAC-SHA-384:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC256SHA384AuthProtocol</literal>). The authentication key length is 48 octets.
             </para>
           </listitem>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-512:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMACSHA512AuthProtocol</literal>). The authentication key length is 64 octets.
+              <emphasis role="bold">HMAC-SHA-512:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC384SHA512AuthProtocol</literal>). The authentication key length is 64 octets.
             </para>
           </listitem>
         </itemizedlist>
@@ -5813,6 +5830,7 @@ onvif://www.onvif.org/name/ARV-453
             </para>
           </listitem>
         </itemizedlist>
+<!--
         <para>
           Support for stronger privacy ciphers and modes is <emphasis role="bold">RECOMMENDED</emphasis>:
         </para>
@@ -5827,82 +5845,13 @@ onvif://www.onvif.org/name/ARV-453
               <emphasis role="bold">AES-GCM / AES-AEAD:</emphasis> Authenticated Encryption with Associated Data (AEAD) modes like AES-128-GCM, AES-192-GCM, AES-256-GCM as generally referenced by <xref linkend="RFC5116"/> and applied to SNMP in documents like <xref linkend="RFCDraftIETFNetmanAESGCM"/> (if standardized). These modes provide both confidentiality and integrity.
             </para>
           </listitem>
-          <listitem>
-            <para>
-                <emphasis role="bold">CHACHA20-POLY1305:</emphasis> As specified in <xref linkend="RFC8439"/>, if an SNMP adaptation exists or is defined.
-            </para>
-          </listitem>
         </itemizedlist>
+-->
         <para>
-          The corresponding <literal>tt:SNMPPrivacyProtocol</literal> enumeration values would include <literal>AES_128_CFB</literal>, and potentially others like <literal>AES_192_CFB</literal>, <literal>AES_256_CFB</literal>, etc., based on Device support.
+          The corresponding <literal>tt:SNMPPrivacyProtocol</literal> enumeration values would include <literal>AES_128_CFB</literal> <!--, and potentially others like <literal>AES_192_CFB</literal>, <literal>AES_256_CFB</literal>, etc.,--> based on Device support.
         </para>
       </section>
     </section>
-
-    <!--
-    Placeholder for new tt: types that would be defined in onvif.xsd:
-
-    <xs:simpleType name="SNMPSecurityLevel">
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="noAuthNoPriv"/>
-        <xs:enumeration value="authNoPriv"/>
-        <xs:enumeration value="authPriv"/>
-      </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="SNMPAuthenticationProtocol">
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="HMAC_SHA_256"/> // usmHMACSHA256AuthProtocol
-        <xs:enumeration value="HMAC_SHA_384"/> // usmHMACSHA384AuthProtocol
-        <xs:enumeration value="HMAC_SHA_512"/> // usmHMACSHA512AuthProtocol
-        // Potentially others if supported
-      </xs:restriction>
-    </xs:simpleType>
-
-    <xs:simpleType name="SNMPPrivacyProtocol">
-      <xs:restriction base="xs:string">
-        <xs:enumeration value="AES_128_CFB"/>  // usmAesCfb128Protocol
-        <xs:enumeration value="AES_192_CFB"/>  // usmAesCfb192Protocol (check OID)
-        <xs:enumeration value="AES_256_CFB"/>  // usmAesCfb256Protocol (check OID)
-        // Potentially others like AES_128_GCM, CHACHA20_POLY1305 if supported and standardized for SNMP
-      </xs:restriction>
-    </xs:simpleType>
-
-    <xs:complexType name="SNMPConfiguration">
-      <xs:sequence>
-        <xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
-        <xs:element name="EngineID" type="xs:hexBinary" minOccurs="0"/>
-        <xs:element name="ListeningPort" type="xs:unsignedInt" minOccurs="0"/>
-        <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:anyAttribute namespace="##any"/>
-    </xs:complexType>
-
-    <xs:complexType name="SNMPUserConfiguration">
-      <xs:sequence>
-        <xs:element name="Username" type="tt:ReferenceToken"/>
-        <xs:element name="SecurityLevel" type="tt:SNMPSecurityLevel"/>
-        <xs:element name="AuthenticationProtocol" type="tt:SNMPAuthenticationProtocol" minOccurs="0"/>
-        <xs:element name="AuthenticationKey" type="tt:BinaryData" minOccurs="0"/>
-        <xs:element name="PrivacyProtocol" type="tt:SNMPPrivacyProtocol" minOccurs="0"/>
-        <xs:element name="PrivacyKey" type="tt:BinaryData" minOccurs="0"/>
-        <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:anyAttribute namespace="##any"/>
-    </xs:complexType>
-
-    <xs:complexType name="SNMPUser">
-      <xs:sequence>
-        <xs:element name="Username" type="tt:ReferenceToken"/>
-        <xs:element name="SecurityLevel" type="tt:SNMPSecurityLevel"/>
-        <xs:element name="AuthenticationProtocol" type="tt:SNMPAuthenticationProtocol" minOccurs="0"/>
-        <xs:element name="PrivacyProtocol" type="tt:SNMPPrivacyProtocol" minOccurs="0"/>
-        <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:anyAttribute namespace="##any"/>
-    </xs:complexType>
-    -->
-
     <!--
     Placeholder for new ter: Fault subcodes:
     ter:InvalidSNMPPort
@@ -5981,24 +5930,6 @@ onvif://www.onvif.org/name/ARV-453
       </authorgroup>
       <publishername>IETF</publishername>
       <pubdate>January 2008</pubdate>
-    </bibliomixed>
-    <bibliomixed xml:id="RFC8439">
-      <abbrev>RFC 8439</abbrev>
-      <citetitle pubwork="INFORMATIONAL">ChaCha20 and Poly1305 for IETF Protocols</citetitle>
-      <authorgroup>
-        <author><personname>Nir, Y.</personname></author>
-        <author><personname>Langley, A.</personname></author>
-      </authorgroup>
-      <publishername>IETF</publishername>
-      <pubdate>June 2018</pubdate>
-    </bibliomixed>
-    <bibliomixed xml:id="RFCDraftIETFNetmanAESGCM">
-        <abbrev>draft-ietf-netman-aes-gcm-snmp-usm-07</abbrev> (or latest version / RFC number if published)
-        <citetitle pubwork="INTERNET-DRAFT">AES-GCM and AES-CCM Authenticated Encryption in the SNMP User-based Security Model</citetitle>
-        <author><personname>Kehrer, S.</personname></author>
-        <author><personname>McGrew, D.</personname></author>
-        <publishername>IETF</publishername>
-        <pubdate>October 2023</pubdate>
     </bibliomixed>
     -->
   </section>
