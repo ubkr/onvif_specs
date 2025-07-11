@@ -5363,10 +5363,6 @@ onvif://www.onvif.org/name/ARV-453
     <para>
       Only SNMPv3 is within the scope of this extension. SNMPv1 and SNMPv2c are explicitly not supported by this extension.
     </para>
-    <para>
-      This extension introduces new data types prefixed with <literal>tt:SNMP</literal> (e.g., <literal>tt:SNMPConfiguration</literal>, <literal>tt:SNMPUser</literal>). These types would be formally defined in the ONVIF schema (<filename>onvif.xsd</filename>).
-    </para>
-
     <section xml:id="s.snmpv3_service_control">
       <title>SNMPv3 Service Control</title>
       <para>
@@ -5401,9 +5397,9 @@ onvif://www.onvif.org/name/ARV-453
                   <colspec colname="c3" colwidth="3*"/>
                   <thead>
                     <row>
-                      <entry>Name</entry>
-                      <entry>Type</entry>
-                      <entry>Description</entry>
+                      <entry><para>Name</para></entry>
+                      <entry><para>Type</para></entry>
+                      <entry><para>Description</para></entry>
                     </row>
                   </thead>
                   <tbody>
