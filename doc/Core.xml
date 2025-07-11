@@ -5581,11 +5581,21 @@ onvif://www.onvif.org/name/ARV-453
                       <entry>tt:SNMPSecurityLevel</entry>
                       <entry/>
                       <entry>
-                        The security level for this user:
+                        <para>The security level for this user:</para>
                         <itemizedlist>
-                          <listitem><para><literal>noAuthNoPriv</literal>: No authentication, no privacy.</para></listitem>
-                          <listitem><para><literal>authNoPriv</literal>: Authentication, no privacy. Requires <literal>AuthenticationProtocol</literal> and <literal>AuthenticationKey</literal>.</para></listitem>
-                          <listitem><para><literal>authPriv</literal>: Authentication and privacy. Requires <literal>AuthenticationProtocol</literal>, <literal>AuthenticationKey</literal>, <literal>PrivacyProtocol</literal>, and <literal>PrivacyKey</literal>.</para></listitem>
+                          <listitem>
+                            <para><literal>noAuthNoPriv</literal>: No authentication, no privacy</para>
+                          </listitem>
+                          <listitem>
+                            <para>
+                              <literal>authNoPriv</literal>: Authentication, no privacy. Requires <literal>AuthenticationProtocol</literal> and <literal>AuthenticationKey</literal>
+                            </para>
+                          </listitem>
+                          <listitem>
+                            <para>
+                              <literal>authPriv</literal>: Authentication and privacy. Requires <literal>AuthenticationProtocol</literal>, <literal>AuthenticationKey</literal>, <literal>PrivacyProtocol</literal>, and <literal>PrivacyKey</literal>
+                            </para>
+                          </listitem>
                         </itemizedlist>
                       </entry>
                     </row>
