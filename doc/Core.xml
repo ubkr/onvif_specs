@@ -590,7 +590,7 @@
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3414"></link>&gt;</para>
     <para xml:id="RFC3826">RFC 3826, The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3826"></link>&gt;</para>
-    <para xml:id="RFC7680">RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
+    <para xml:id="RFC7860">RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc7860"></link>&gt;</para>
   </chapter>
   <chapter>
@@ -5358,7 +5358,7 @@ onvif://www.onvif.org/name/ARV-453
   <section xml:id="s.snmpv3_extension">
     <title>SNMPv3 Device Management Extension (Optional)</title>
     <para>
-      This section defines an optional extension to the Device Management Service for supporting Simple Network Management Protocol version 3 (SNMPv3) as specified in <xref linkend="RFC3410"/> and related standards. Devices supporting this extension <emphasis role="bold">shall</emphasis> indicate this capability via the <literal>SNMPv3</literal> flag in the <literal>DeviceServiceCapabilities</literal> (see Section <xref linkend="tds.GetCapabilities"/>).
+      This section defines an optional extension to the Device Management Service for supporting Simple Network Management Protocol version 3 (SNMPv3) as specified in <xref linkend="RFC3410"/> and related standards. Devices supporting this extension <emphasis role="bold">shall</emphasis> indicate this capability via the <literal>SNMPv3</literal> flag in the <literal>DeviceServiceCapabilities</literal> (see Section <xref linkend="_Ref468447902"/>).
     </para>
     <para>
       Only SNMPv3 is within the scope of this extension. SNMPv1 and SNMPv2c are explicitly not supported by this extension.
