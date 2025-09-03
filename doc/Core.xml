@@ -3065,6 +3065,14 @@ onvif://www.onvif.org/name/ARV-453
                   </entry>
                 </row>
                 <row>
+                  <entry>
+                    <para>SNMPv3</para>
+                  </entry>
+                  <entry>
+                    <para>Indication if the device supports SNMPv3 Device Management Extension as specified in Section <xref linkend="s.snmpv3_extension"/>.</para>
+                  </entry>
+                </row>
+                <row>
                   <entry morerows="17">
                     <para>System</para>
                   </entry>
