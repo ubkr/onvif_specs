@@ -3069,7 +3069,7 @@ onvif://www.onvif.org/name/ARV-453
                     <para>SNMPv3</para>
                   </entry>
                   <entry>
-                    <para>Indication if the device supports SNMPv3 Device Management Extension as specified in Section <xref linkend="s.snmpv3_extension"/>.</para>
+                    <para>Indicates if the device supports SNMPv3 Device Management Extension with service configuration and initial user setup as specified in Section <xref linkend="s.snmpv3_extension"/>.</para>
                   </entry>
                 </row>
                 <row>
@@ -5461,11 +5461,15 @@ onvif://www.onvif.org/name/ARV-453
         <title>SetSNMPConfiguration</title>
         <para>
           This operation is used by a Client to enable or disable the SNMPv3 service and to configure its global parameters.
+          Additionally, this operation can optionally create an initial SNMPv3 user during service setup.
           A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
         </para>
         <para>
           Some parameters, like the <literal>EngineID</literal>, <emphasis role="bold">may</emphasis> not be settable by a Client after initial determination by the Device, or <emphasis role="bold">may</emphasis> only be settable under specific conditions (e.g., when the service is disabled). If an attempt is made to set a non-settable <literal>EngineID</literal>, the Device <emphasis role="bold">shall</emphasis> return a <literal>ter:SNMPEngineIDNotSettable</literal> fault.
           If an optional parameter is not present in the request, the Device <emphasis role="bold">shall not</emphasis> change the current value of that parameter.
+        </para>
+        <para>
+          For initial user creation: If <literal>InitialUserName</literal> is provided, then <literal>SecurityLevel</literal> <emphasis role="bold">must</emphasis> also be provided. Depending on the <literal>SecurityLevel</literal>, additional authentication and privacy parameters may be required as specified in the parameter descriptions. The Device <emphasis role="bold">shall</emphasis> validate that all required parameters for the chosen security level are provided and return appropriate fault codes if the configuration is incomplete or invalid.
         </para>
         <variablelist role="op">
           <varlistentry>
@@ -5512,6 +5516,42 @@ onvif://www.onvif.org/name/ARV-453
                         Valid port range is typically 1-65535.
                       </entry>
                     </row>
+                    <row>
+                      <entry>InitialUserName</entry>
+                      <entry>xs:string</entry>
+                      <entry>optional</entry>
+                      <entry>Username for the initial SNMPv3 user. If provided, SecurityLevel must also be specified. Max length 32 octets per USM requirements.</entry>
+                    </row>
+                    <row>
+                      <entry>SecurityLevel</entry>
+                      <entry>tt:SNMPSecurityLevel</entry>
+                      <entry>optional</entry>
+                      <entry>Security level for the initial user (noAuthNoPriv, authNoPriv, authPriv). Required if InitialUserName is provided.</entry>
+                    </row>
+                    <row>
+                      <entry>AuthenticationProtocol</entry>
+                      <entry>tt:SNMPAuthenticationProtocol</entry>
+                      <entry>optional</entry>
+                      <entry>Authentication protocol. Required if SecurityLevel is authNoPriv or authPriv.</entry>
+                    </row>
+                    <row>
+                      <entry>AuthenticationKey</entry>
+                      <entry>tt:BinaryData</entry>
+                      <entry>optional</entry>
+                      <entry>Authentication key (base64-encoded). Required if SecurityLevel is authNoPriv or authPriv.</entry>
+                    </row>
+                    <row>
+                      <entry>PrivacyProtocol</entry>
+                      <entry>tt:SNMPPrivacyProtocol</entry>
+                      <entry>optional</entry>
+                      <entry>Privacy protocol. Required if SecurityLevel is authPriv.</entry>
+                    </row>
+                    <row>
+                      <entry>PrivacyKey</entry>
+                      <entry>tt:BinaryData</entry>
+                      <entry>optional</entry>
+                      <entry>Privacy key (base64-encoded). Required if SecurityLevel is authPriv.</entry>
+                    </row>
                   </tbody>
                 </tgroup>
               </informaltable>
@@ -5532,6 +5572,10 @@ onvif://www.onvif.org/name/ARV-453
               <para role="text">The provided <literal>EngineID</literal> is malformed or invalid according to <xref linkend="RFC3411"/>.</para>
               <para role="param">env:Receiver - ter:ActionNotSupported - ter:SNMPEngineIDNotSettable</para>
               <para role="text">The Device does not allow the <literal>EngineID</literal> to be set via this command, or under the current conditions.</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPInitialUserIncomplete</para>
+              <para role="text">Initial user configuration is incomplete (missing required fields for specified SecurityLevel).</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPInvalidInitialUser</para>
+              <para role="text">The provided initial user configuration is invalid (username too long, invalid keys, etc.).</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5544,270 +5588,12 @@ onvif://www.onvif.org/name/ARV-453
       </section>
     </section>
 
-    <section xml:id="s.snmpv3_user_management">
-      <title>SNMPv3 User Management</title>
-      <para>
-        The Device <emphasis role="bold">shall</emphasis> support the management of SNMPv3 users, as defined in the User-based Security Model (USM) for SNMPv3 (<xref linkend="RFC3414"/>), via the following operations.
-        SNMPv3 user credentials (authentication and privacy keys) are distinct from ONVIF device user credentials.
-      </para>
-      <para>
-        The Device <emphasis role="bold">shall</emphasis> enforce unique SNMPv3 usernames.
-        The Device <emphasis role="bold">shall</emphasis> support configuration of at least one SNMPv3 user with the <literal>authPriv</literal> security level. The total number of SNMPv3 users supported by the Device is implementation-specific.
-      </para>
-
-      <section xml:id="op.AddSNMPUser">
-        <title>AddSNMPUser</title>
-        <para>
-          This operation adds a new SNMPv3 user to the Device's USM table.
-          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
-        </para>
-        <para>
-          The request includes the username, authentication protocol and key, privacy protocol and key (if applicable), and the desired security level.
-          Keys <emphasis role="bold">shall</emphasis> be localized by the Device before use, as per <xref linkend="RFC3414"/>, Section A.2.
-        </para>
-        <variablelist role="op">
-          <varlistentry>
-            <term>request</term>
-            <listitem>
-              <para role="param">User [tt:SNMPUserConfiguration]</para>
-              <para role="text">The configuration for the new SNMPv3 user.</para>
-              <informaltable frame="all">
-                <tgroup cols="4">
-                  <colspec colname="c1" colwidth="1.5*"/>
-                  <colspec colname="c2" colwidth="1.5*"/>
-                  <colspec colname="c3" colwidth="0.5*"/>
-                  <colspec colname="c4" colwidth="3*"/>
-                  <thead>
-                    <row>
-                      <entry>Name</entry>
-                      <entry>Type</entry>
-                      <entry>Attributes</entry>
-                      <entry>Description</entry>
-                    </row>
-                  </thead>
-                  <tbody>
-                    <row>
-                      <entry>Username</entry>
-                      <entry>tt:ReferenceToken</entry>
-                      <entry/>
-                      <entry>A unique username for the SNMPv3 user. Max length is 32 octets as per USM requirements.</entry>
-                    </row>
-                    <row>
-                      <entry>SecurityLevel</entry>
-                      <entry>tt:SNMPSecurityLevel</entry>
-                      <entry/>
-                      <entry>
-                        <para>The security level for this user:</para>
-                        <itemizedlist>
-                          <listitem>
-                            <para><literal>noAuthNoPriv</literal>: No authentication, no privacy</para>
-                          </listitem>
-                          <listitem>
-                            <para>
-                              <literal>authNoPriv</literal>: Authentication, no privacy. Requires <literal>AuthenticationProtocol</literal> and <literal>AuthenticationKey</literal>
-                            </para>
-                          </listitem>
-                          <listitem>
-                            <para>
-                              <literal>authPriv</literal>: Authentication and privacy. Requires <literal>AuthenticationProtocol</literal>, <literal>AuthenticationKey</literal>, <literal>PrivacyProtocol</literal>, and <literal>PrivacyKey</literal>
-                            </para>
-                          </listitem>
-                        </itemizedlist>
-                      </entry>
-                    </row>
-                    <row>
-                      <entry>AuthenticationProtocol</entry>
-                      <entry>tt:SNMPAuthenticationProtocol</entry>
-                      <entry>optional</entry>
-                      <entry>
-                        The authentication protocol. Required if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.
-                        See Section <xref linkend="s.snmpv3_security_parameter_configuration"/> for supported protocols.
-                      </entry>
-                    </row>
-                    <row>
-                      <entry>AuthenticationKey</entry>
-                      <entry>tt:BinaryData</entry>
-                      <entry>optional</entry>
-                      <entry>
-                        The authentication key, provided as base64-encoded binary data. Required if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.
-                        The length of the key depends on the chosen <literal>AuthenticationProtocol</literal>.
-                      </entry>
-                    </row>
-                    <row>
-                      <entry>PrivacyProtocol</entry>
-                      <entry>tt:SNMPPrivacyProtocol</entry>
-                      <entry>optional</entry>
-                      <entry>
-                        The privacy protocol. Required if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.
-                        See Section <xref linkend="s.snmpv3_security_parameter_configuration"/> for supported protocols.
-                      </entry>
-                    </row>
-                    <row>
-                      <entry>PrivacyKey</entry>
-                      <entry>tt:BinaryData</entry>
-                      <entry>optional</entry>
-                      <entry>
-                        The privacy key, provided as base64-encoded binary data. Required if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.
-                        The length of the key depends on the chosen <literal>PrivacyProtocol</literal>.
-                      </entry>
-                    </row>
-                  </tbody>
-                </tgroup>
-              </informaltable>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>response</term>
-            <listitem>
-              <para role="text">This is an empty message.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>faults</term>
-            <listitem>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUserAlreadyExists</para>
-              <para role="text">An SNMP user with the specified <literal>Username</literal> already exists.</para>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPUsername</para>
-              <para role="text">The provided <literal>Username</literal> is invalid (e.g., too long, invalid characters).</para>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPInvalidKey</para>
-              <para role="text">
-                The provided <literal>AuthenticationKey</literal> or <literal>PrivacyKey</literal> is invalid for the chosen protocol (e.g., incorrect length, malformed).
-                This fault is also used if a required key is missing for the specified <literal>SecurityLevel</literal>.
-              </para>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPAuthProtocolNotSupported</para>
-              <para role="text">The requested <literal>AuthenticationProtocol</literal> is not supported by the Device.</para>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPPrivProtocolNotSupported</para>
-              <para role="text">The requested <literal>PrivacyProtocol</literal> is not supported by the Device.</para>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUnsupportedSecurityLevel</para>
-              <para role="text">The combination of protocols for the specified <literal>SecurityLevel</literal> is not supported, or a required protocol was not specified.</para>
-              <para role="param">env:Receiver - ter:ActionNotSupported - ter:MaxSNMPUsersExceeded</para>
-              <para role="text">The Device cannot add another SNMP user as it has reached its maximum capacity.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>access class</term>
-            <listitem>
-              <para role="access">WRITE_SYSTEM</para> <!-- Or a more specific security admin class if one exists -->
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </section>
-
-      <section xml:id="op.DeleteSNMPUser">
-        <title>DeleteSNMPUser</title>
-        <para>
-          This operation removes an existing SNMPv3 user from the Device's USM table.
-          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
-        </para>
-        <variablelist role="op">
-          <varlistentry>
-            <term>request</term>
-            <listitem>
-              <para role="param">Username [tt:ReferenceToken]</para>
-              <para role="text">The username of the SNMPv3 user to be deleted.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>response</term>
-            <listitem>
-              <para role="text">This is an empty message.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>faults</term>
-            <listitem>
-              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUserNotFound</para>
-              <para role="text">No SNMP user with the specified <literal>Username</literal> exists.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>access class</term>
-            <listitem>
-              <para role="access">WRITE_SYSTEM</para> <!-- Or a more specific security admin class -->
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </section>
-
-      <section xml:id="op.GetSNMPUsers">
-        <title>GetSNMPUsers</title>
-        <para>
-          This operation retrieves a list of all configured SNMPv3 users on the Device.
-          For security reasons, this operation <emphasis role="bold">shall not</emphasis> return authentication or privacy keys.
-          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
-        </para>
-        <variablelist role="op">
-          <varlistentry>
-            <term>request</term>
-            <listitem>
-              <para role="text">This is an empty message.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>response</term>
-            <listitem>
-              <para role="param">User - unbounded [tt:SNMPUser]</para>
-              <para role="text">A list of configured SNMPv3 users. If no users are configured, this list will be empty.</para>
-              <informaltable frame="all">
-                <tgroup cols="3">
-                  <colspec colname="c1" colwidth="1.5*"/>
-                  <colspec colname="c2" colwidth="1.5*"/>
-                  <colspec colname="c3" colwidth="3*"/>
-                  <thead>
-                    <row>
-                      <entry>Name</entry>
-                      <entry>Type</entry>
-                      <entry>Description</entry>
-                    </row>
-                  </thead>
-                  <tbody>
-                    <row>
-                      <entry>Username</entry>
-                      <entry>tt:ReferenceToken</entry>
-                      <entry>The unique username of the SNMPv3 user.</entry>
-                    </row>
-                    <row>
-                      <entry>SecurityLevel</entry>
-                      <entry>tt:SNMPSecurityLevel</entry>
-                      <entry>The security level configured for this user.</entry>
-                    </row>
-                    <row>
-                      <entry>AuthenticationProtocol</entry>
-                      <entry>tt:SNMPAuthenticationProtocol</entry>
-                      <entry>The authentication protocol configured for this user. Present if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.</entry>
-                    </row>
-                    <row>
-                      <entry>PrivacyProtocol</entry>
-                      <entry>tt:SNMPPrivacyProtocol</entry>
-                      <entry>The privacy protocol configured for this user. Present if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.</entry>
-                    </row>
-                  </tbody>
-                </tgroup>
-              </informaltable>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>faults</term>
-            <listitem>
-              <para role="text">No command specific faults defined.</para>
-            </listitem>
-          </varlistentry>
-          <varlistentry>
-            <term>access class</term>
-            <listitem>
-              <para role="access">READ_SYSTEM</para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-      </section>
-    </section>
-
     <section xml:id="s.snmpv3_security_parameter_configuration">
       <title>Security Parameter Configuration</title>
       <para>
         This section details the requirements for authentication and privacy protocols supported by the SNMPv3 extension.
-        Devices <emphasis role="bold">shall</emphasis> securely store localized keys and apply them according to the user's configured security level.
-        Keys for authentication and privacy <emphasis role="bold">shall</emphasis> be provided by the Client as base64-encoded binary data using the <literal>tt:BinaryData</literal> type. The Device <emphasis role="bold">shall</emphasis> delocalize these keys using its EngineID as per SNMPv3 USM specifications (<xref linkend="RFC3414"/> Appendix A) before storing them internally.
+        When an initial user is created via <literal>SetSNMPConfiguration</literal>, the Device <emphasis role="bold">shall</emphasis> securely store localized keys and apply them according to the specified security level.
+        Keys for authentication and privacy <emphasis role="bold">shall</emphasis> be provided by the Client as base64-encoded binary data using the <literal>tt:BinaryData</literal> type. The Device <emphasis role="bold">shall</emphasis> localize these keys using its EngineID as per SNMPv3 USM specifications (<xref linkend="RFC3414"/> Appendix A) before storing them internally.
       </para>
       <section xml:id="s.snmpv3_auth_protocols">
         <title>Authentication Protocols</title>

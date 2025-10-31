@@ -9280,37 +9280,27 @@ If RectangleOnly is not set to true, this parameter is required.
 
     <xs:complexType name="SNMPConfiguration">
       <xs:sequence>
+        <!-- Existing service configuration -->
         <xs:element name="Enabled" type="xs:boolean" minOccurs="0"/>
         <xs:element name="EngineID" type="xs:hexBinary" minOccurs="0"/>
         <xs:element name="ListeningPort" type="xs:unsignedInt" minOccurs="0"/>
-        <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:anyAttribute namespace="##any"/>
-    </xs:complexType>
-
-    <xs:complexType name="SNMPUserConfiguration">
-      <xs:sequence>
-        <xs:element name="Username" type="xs:string"/>
-        <xs:element name="SecurityLevel" type="tt:SNMPSecurityLevel"/>
+        
+        <!-- NEW: Initial user configuration (all optional) -->
+        <xs:element name="InitialUserName" type="xs:string" minOccurs="0"/>
+        <xs:element name="SecurityLevel" type="tt:SNMPSecurityLevel" minOccurs="0"/>
         <xs:element name="AuthenticationProtocol" type="tt:SNMPAuthenticationProtocol" minOccurs="0"/>
         <xs:element name="AuthenticationKey" type="tt:BinaryData" minOccurs="0"/>
         <xs:element name="PrivacyProtocol" type="tt:SNMPPrivacyProtocol" minOccurs="0"/>
         <xs:element name="PrivacyKey" type="tt:BinaryData" minOccurs="0"/>
+        
         <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
       </xs:sequence>
       <xs:anyAttribute namespace="##any"/>
     </xs:complexType>
 
-    <xs:complexType name="SNMPUser">
-      <xs:sequence>
-        <xs:element name="Username" type="xs:string"/>
-        <xs:element name="SecurityLevel" type="tt:SNMPSecurityLevel"/>
-        <xs:element name="AuthenticationProtocol" type="tt:SNMPAuthenticationProtocol" minOccurs="0"/>
-        <xs:element name="PrivacyProtocol" type="tt:SNMPPrivacyProtocol" minOccurs="0"/>
-        <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded"/>
-      </xs:sequence>
-      <xs:anyAttribute namespace="##any"/>
-    </xs:complexType>
+
+
+
 	<!--=========================================-->
 	<!--  End, SNMPv3Configuration               -->
 	<!--=========================================-->
