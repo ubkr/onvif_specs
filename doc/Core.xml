@@ -590,15 +590,15 @@
     <para role="reference">&lt; <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://earth-info.nga.mil/GandG/publications/tr8350.2/tr8350_2.html"></link>&gt;</para>
     <para>JSON-LD 1.1 A JSON-based Serialization for Linked Data</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://json-ld.org/spec/latest/json-ld/"></link>&gt;</para>
-    <para xml:id="RFC3410">RFC 3410, Introduction and Applicability Statements for Internet-Standard Management Framework</para>
+    <para>RFC 3410, Introduction and Applicability Statements for Internet-Standard Management Framework</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3410"></link>&gt;</para>
-    <para xml:id="RFC3411">RFC 3411, An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks</para>
+    <para>RFC 3411, An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3411"></link>&gt;</para>
-    <para xml:id="RFC3414">RFC 3414, User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)</para>
+    <para>RFC 3414, User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3414"></link>&gt;</para>
-    <para xml:id="RFC3826">RFC 3826, The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</para>
+    <para>RFC 3826, The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3826"></link>&gt;</para>
-    <para xml:id="RFC7860">RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
+    <para>RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc7860"></link>&gt;</para>
   </chapter>
   <chapter>
@@ -5372,9 +5372,9 @@ onvif://www.onvif.org/name/ARV-453
     </section>
 
   <section xml:id="s.snmpv3_extension">
-    <title>SNMPv3 Device Management Extension (Optional)</title>
+    <title>SNMPv3 Configuration (Optional)</title>
     <para>
-      This section defines an optional extension to the Device Management Service for supporting Simple Network Management Protocol version 3 (SNMPv3) as specified in <xref linkend="RFC3410"/> and related standards. Devices supporting this extension <emphasis role="bold">shall</emphasis> indicate this capability via the <literal>SNMPv3</literal> flag in the <literal>DeviceServiceCapabilities</literal> (see Section <xref linkend="_Ref468447902"/>).
+      This section defines an optional extension to the Device Management Service for supporting Simple Network Management Protocol version 3 (SNMPv3) as specified in [RFC 3410] and related standards. Devices supporting this extension shall indicate this capability via the <literal>SNMPv3</literal> flag in the <literal>DeviceServiceCapabilities</literal> (see Section <xref linkend="_Ref468447902"/>).
     </para>
     <para>
       Only SNMPv3 is within the scope of this extension. SNMPv1 and SNMPv2c are explicitly not supported by this extension.
@@ -5382,17 +5382,17 @@ onvif://www.onvif.org/name/ARV-453
     <section xml:id="s.snmpv3_service_control">
       <title>SNMPv3 Service Control</title>
       <para>
-        Devices supporting this extension <emphasis role="bold">shall</emphasis> provide the following operations for managing the SNMPv3 service itself.
+        Devices supporting this extension shall provide the following operations for managing the SNMPv3 service itself.
       </para>
       <para>
-        The SNMPv3 service <emphasis role="bold">shall</emphasis> be disabled by default unless explicitly enabled by a Client. When disabled, the Device <emphasis role="bold">should not</emphasis> listen on the SNMP port, and attempts to query via SNMP <emphasis role="bold">should</emphasis> fail.
+        The SNMPv3 service shall be disabled by default unless explicitly enabled by a Client. When disabled, the Device should not listen on the SNMP port, and attempts to query via SNMP should fail.
       </para>
 
       <section xml:id="op.GetSNMPConfiguration">
         <title>GetSNMPConfiguration</title>
         <para>
           This operation is used by a Client to retrieve the current SNMPv3 service status and global configuration parameters from a Device.
-          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+          A Device supporting the SNMPv3 extension shall implement this command.
         </para>
         <variablelist role="op">
           <varlistentry>
@@ -5428,7 +5428,7 @@ onvif://www.onvif.org/name/ARV-453
                       <entry>EngineID</entry>
                       <entry>xs:hexBinary</entry>
                       <entry>
-                        The SNMP Engine ID of the Device, as defined in <xref linkend="RFC3411"/>. This value is typically read-only after initial configuration or discovery by the SNMP engine itself.
+                        The SNMP Engine ID of the Device, as defined in [RFC 3411]. This value is typically read-only after initial configuration or discovery by the SNMP engine itself.
                         The Device <emphasis role="bold">should</emphasis> persist this EngineID across reboots.
                       </entry>
                     </row>
@@ -5462,14 +5462,14 @@ onvif://www.onvif.org/name/ARV-453
         <para>
           This operation is used by a Client to enable or disable the SNMPv3 service and to configure its global parameters.
           Additionally, this operation can optionally create an initial SNMPv3 user during service setup.
-          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+          A Device supporting the SNMPv3 extension shall implement this command.
         </para>
         <para>
-          Some parameters, like the <literal>EngineID</literal>, <emphasis role="bold">may</emphasis> not be settable by a Client after initial determination by the Device, or <emphasis role="bold">may</emphasis> only be settable under specific conditions (e.g., when the service is disabled). If an attempt is made to set a non-settable <literal>EngineID</literal>, the Device <emphasis role="bold">shall</emphasis> return a <literal>ter:SNMPEngineIDNotSettable</literal> fault.
-          If an optional parameter is not present in the request, the Device <emphasis role="bold">shall not</emphasis> change the current value of that parameter.
+          Some parameters, like the <literal>EngineID</literal>, may not be settable by a Client after initial determination by the Device, or may only be settable under specific conditions (e.g., when the service is disabled). If an attempt is made to set a non-settable <literal>EngineID</literal>, the Device shall return a <literal>ter:SNMPEngineIDNotSettable</literal> fault.
+          If an optional parameter is not present in the request, the Device shall not change the current value of that parameter.
         </para>
         <para>
-          For initial user creation: If <literal>InitialUserName</literal> is provided, then <literal>SecurityLevel</literal> <emphasis role="bold">must</emphasis> also be provided. Depending on the <literal>SecurityLevel</literal>, additional authentication and privacy parameters may be required as specified in the parameter descriptions. The Device <emphasis role="bold">shall</emphasis> validate that all required parameters for the chosen security level are provided and return appropriate fault codes if the configuration is incomplete or invalid.
+          For initial user creation: If <literal>InitialUserName</literal> is provided, then <literal>SecurityLevel</literal> must also be provided. Depending on the <literal>SecurityLevel</literal>, additional authentication and privacy parameters may be required as specified in the parameter descriptions. The Device shall validate that all required parameters for the chosen security level are provided and return appropriate fault codes if the configuration is incomplete or invalid.
         </para>
         <variablelist role="op">
           <varlistentry>
@@ -5569,7 +5569,7 @@ onvif://www.onvif.org/name/ARV-453
               <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPPort</para>
               <para role="text">The provided <literal>ListeningPort</literal> is outside the valid range or is otherwise unusable.</para>
               <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPEngineID</para>
-              <para role="text">The provided <literal>EngineID</literal> is malformed or invalid according to <xref linkend="RFC3411"/>.</para>
+              <para role="text">The provided <literal>EngineID</literal> is malformed or invalid according to [RFC 3411].</para>
               <para role="param">env:Receiver - ter:ActionNotSupported - ter:SNMPEngineIDNotSettable</para>
               <para role="text">The Device does not allow the <literal>EngineID</literal> to be set via this command, or under the current conditions.</para>
               <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPInitialUserIncomplete</para>
@@ -5592,33 +5592,33 @@ onvif://www.onvif.org/name/ARV-453
       <title>Security Parameter Configuration</title>
       <para>
         This section details the requirements for authentication and privacy protocols supported by the SNMPv3 extension.
-        When an initial user is created via <literal>SetSNMPConfiguration</literal>, the Device <emphasis role="bold">shall</emphasis> securely store localized keys and apply them according to the specified security level.
-        Keys for authentication and privacy <emphasis role="bold">shall</emphasis> be provided by the Client as base64-encoded binary data using the <literal>tt:BinaryData</literal> type. The Device <emphasis role="bold">shall</emphasis> localize these keys using its EngineID as per SNMPv3 USM specifications (<xref linkend="RFC3414"/> Appendix A) before storing them internally.
+        When an initial user is created via <literal>SetSNMPConfiguration</literal>, the Device shall securely store localized keys and apply them according to the specified security level.
+        Keys for authentication and privacy shall be provided by the Client as base64-encoded binary data using the <literal>tt:BinaryData</literal> type. The Device shall localize these keys using its EngineID as per SNMPv3 USM specifications ([RFC 3414] Appendix A) before storing them internally.
       </para>
       <section xml:id="s.snmpv3_auth_protocols">
         <title>Authentication Protocols</title>
         <para>
-          The following authentication protocols <emphasis role="bold">shall</emphasis> be supported:
+          The following authentication protocols shall be supported:
         </para>
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-256:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC192SHA256AuthProtocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The authentication key length is 32 octets.
+              <emphasis role="bold">HMAC-SHA-256:</emphasis> As specified in [RFC 7860] (OID: <literal>usmHMAC192SHA256AuthProtocol</literal>). This protocol is REQUIRED. The authentication key length is 32 octets.
             </para>
           </listitem>
         </itemizedlist>
         <para>
-          Support for stronger authentication algorithms is <emphasis role="bold">RECOMMENDED</emphasis>:
+          Support for stronger authentication algorithms is RECOMMENDED:
         </para>
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-384:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC256SHA384AuthProtocol</literal>). The authentication key length is 48 octets.
+              <emphasis role="bold">HMAC-SHA-384:</emphasis> As specified in [RFC 7860] (OID: <literal>usmHMAC256SHA384AuthProtocol</literal>). The authentication key length is 48 octets.
             </para>
           </listitem>
           <listitem>
             <para>
-              <emphasis role="bold">HMAC-SHA-512:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC384SHA512AuthProtocol</literal>). The authentication key length is 64 octets.
+              <emphasis role="bold">HMAC-SHA-512:</emphasis> As specified in [RFC 7860] (OID: <literal>usmHMAC384SHA512AuthProtocol</literal>). The authentication key length is 64 octets.
             </para>
           </listitem>
         </itemizedlist>
@@ -5629,12 +5629,12 @@ onvif://www.onvif.org/name/ARV-453
       <section xml:id="s.snmpv3_priv_protocols">
         <title>Privacy Protocols</title>
         <para>
-          The following privacy protocols <emphasis role="bold">shall</emphasis> be supported:
+          The following privacy protocols shall be supported:
         </para>
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">AES-128-CFB:</emphasis> As specified in <xref linkend="RFC3826"/> (OID: <literal>usmAesCfb128Protocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The privacy key length is 16 octets.
+              <emphasis role="bold">AES-128-CFB:</emphasis> As specified in [RFC 3826] (OID: <literal>usmAesCfb128Protocol</literal>). This protocol is REQUIRED. The privacy key length is 16 octets.
             </para>
           </listitem>
         </itemizedlist>
@@ -5645,12 +5645,12 @@ onvif://www.onvif.org/name/ARV-453
         <itemizedlist>
           <listitem>
             <para>
-              <emphasis role="bold">AES-192-CFB / AES-256-CFB:</emphasis> As specified in <xref linkend="RFC3826"/> (OIDs: <literal>usmAesCfb192Protocol</literal>, <literal>usmAesCfb256Protocol</literal>). Key lengths are 24 and 32 octets respectively. Note: <xref linkend="RFC3826"/> originally defined these with placeholder OIDs; check for official assignments if implementing.
+              <emphasis role="bold">AES-192-CFB / AES-256-CFB:</emphasis> As specified in [RFC 3826] (OIDs: <literal>usmAesCfb192Protocol</literal>, <literal>usmAesCfb256Protocol</literal>). Key lengths are 24 and 32 octets respectively. Note: [RFC 3826] originally defined these with placeholder OIDs; check for official assignments if implementing.
             </para>
           </listitem>
           <listitem>
             <para>
-              <emphasis role="bold">AES-GCM / AES-AEAD:</emphasis> Authenticated Encryption with Associated Data (AEAD) modes like AES-128-GCM, AES-192-GCM, AES-256-GCM as generally referenced by <xref linkend="RFC5116"/> and applied to SNMP in documents like <xref linkend="RFCDraftIETFNetmanAESGCM"/> (if standardized). These modes provide both confidentiality and integrity.
+              <emphasis role="bold">AES-GCM / AES-AEAD:</emphasis> Authenticated Encryption with Associated Data (AEAD) modes like AES-128-GCM, AES-192-GCM, AES-256-GCM as generally referenced by [RFC 5116] and applied to SNMP in documents like [RFCDraftIETFNetmanAESGCM] (if standardized). These modes provide both confidentiality and integrity.
             </para>
           </listitem>
         </itemizedlist>
