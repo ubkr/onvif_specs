@@ -590,6 +590,16 @@
     <para role="reference">&lt; <link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="http://earth-info.nga.mil/GandG/publications/tr8350.2/tr8350_2.html"></link>&gt;</para>
     <para>JSON-LD 1.1 A JSON-based Serialization for Linked Data</para>
     <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://json-ld.org/spec/latest/json-ld/"></link>&gt;</para>
+    <para xml:id="RFC3410">RFC 3410, Introduction and Applicability Statements for Internet-Standard Management Framework</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3410"></link>&gt;</para>
+    <para xml:id="RFC3411">RFC 3411, An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3411"></link>&gt;</para>
+    <para xml:id="RFC3414">RFC 3414, User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3414"></link>&gt;</para>
+    <para xml:id="RFC3826">RFC 3826, The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc3826"></link>&gt;</para>
+    <para xml:id="RFC7860">RFC 7860, HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</para>
+    <para role="reference">&lt;<link xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="https://datatracker.ietf.org/doc/html/rfc7860"></link>&gt;</para>
   </chapter>
   <chapter>
     <title>Terms and Definitions</title>
@@ -943,7 +953,14 @@
                 <para>Security Assertion Markup Language </para>
               </entry>
             </row>
-            <row>
+             <row>
+              <entry valign="middle">
+                <para>SNMP</para>
+              </entry>
+              <entry valign="middle">
+                <para>Simple Network Management Protocol </para>
+              </entry>
+            </row>           <row>
               <entry valign="middle">
                 <para>SOAP</para>
               </entry>
@@ -5077,8 +5094,7 @@ onvif://www.onvif.org/name/ARV-453
             <term>request</term>
             <listitem>
               <para role="param">xs:anyURI:ScopeItem [1][unbounded]</para>
-              <para role="text">The add scope contains a list of URIs to be added to the existing configurable scope list. See also Section .. 
-</para>
+              <para role="text">The add scope contains a list of URIs to be added to the existing configurable scope list. See also Section .. </para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5111,16 +5127,14 @@ onvif://www.onvif.org/name/ARV-453
             <term>request</term>
             <listitem>
               <para role="param">ScopeItem - unbounded [xs:anyURI]</para>
-              <para role="text">The remove scope contains a list of URIs that should be removed from the device scope.
-</para>
+              <para role="text">The remove scope contains a list of URIs that should be removed from the device scope.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
             <term>response</term>
             <listitem>
               <para role="param">ScopeItem - optional, unbounded [xs:anyURI]</para>
-              <para role="text">The scope response message contains a list of URIs that has been Removed from the device scope. 
-</para>
+              <para role="text">The scope response message contains a list of URIs that has been Removed from the device scope. </para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5154,8 +5168,7 @@ onvif://www.onvif.org/name/ARV-453
             <term>response</term>
             <listitem>
               <para role="param">DiscoveryMode [tt:DiscoveryMode]</para>
-              <para role="text">This message contains the current discovery mode setting, i.e. discoverable or non-discoverable.
-</para>
+              <para role="text">This message contains the current discovery mode setting, i.e. discoverable or non-discoverable.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5183,8 +5196,7 @@ onvif://www.onvif.org/name/ARV-453
             <term>request</term>
             <listitem>
               <para role="param">DiscoveryMode [tt:DiscoveryMode]</para>
-              <para role="text">This message contains the requested discovery mode setting, i.e. discoverable or non-discoverable.
-</para>
+              <para role="text">This message contains the requested discovery mode setting, i.e. discoverable or non-discoverable.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5286,8 +5298,7 @@ onvif://www.onvif.org/name/ARV-453
             <term>request</term>
             <listitem>
               <para role="param">Location - unbounded [tt:LocationEntity]</para>
-              <para role="text">This message contains one or more geo location entries to be stored.
-</para>
+              <para role="text">This message contains one or more geo location entries to be stored.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5324,8 +5335,7 @@ onvif://www.onvif.org/name/ARV-453
             <term>request</term>
             <listitem>
               <para role="param">Entity - unbounded [tt:LocationEntity]</para>
-              <para role="text">This message contains one or more geo location entries to be removed.
-</para>
+              <para role="text">This message contains one or more geo location entries to be removed.</para>
             </listitem>
           </varlistentry>
           <varlistentry>
@@ -5352,6 +5362,592 @@ onvif://www.onvif.org/name/ARV-453
         </variablelist>
       </section>
     </section>
+
+  <section xml:id="s.snmpv3_extension">
+    <title>SNMPv3 Device Management Extension (Optional)</title>
+    <para>
+      This section defines an optional extension to the Device Management Service for supporting Simple Network Management Protocol version 3 (SNMPv3) as specified in <xref linkend="RFC3410"/> and related standards. Devices supporting this extension <emphasis role="bold">shall</emphasis> indicate this capability via the <literal>SNMPv3</literal> flag in the <literal>DeviceServiceCapabilities</literal> (see Section <xref linkend="_Ref468447902"/>).
+    </para>
+    <para>
+      Only SNMPv3 is within the scope of this extension. SNMPv1 and SNMPv2c are explicitly not supported by this extension.
+    </para>
+    <section xml:id="s.snmpv3_service_control">
+      <title>SNMPv3 Service Control</title>
+      <para>
+        Devices supporting this extension <emphasis role="bold">shall</emphasis> provide the following operations for managing the SNMPv3 service itself.
+      </para>
+      <para>
+        The SNMPv3 service <emphasis role="bold">shall</emphasis> be disabled by default unless explicitly enabled by a Client. When disabled, the Device <emphasis role="bold">should not</emphasis> listen on the SNMP port, and attempts to query via SNMP <emphasis role="bold">should</emphasis> fail.
+      </para>
+
+      <section xml:id="op.GetSNMPConfiguration">
+        <title>GetSNMPConfiguration</title>
+        <para>
+          This operation is used by a Client to retrieve the current SNMPv3 service status and global configuration parameters from a Device.
+          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+        </para>
+        <variablelist role="op">
+          <varlistentry>
+            <term>request</term>
+            <listitem>
+              <para role="text">This is an empty message.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>response</term>
+            <listitem>
+              <para role="param">SNMPConfiguration [tt:SNMPConfiguration]</para>
+              <para role="text">The current SNMPv3 service configuration.</para>
+              <informaltable frame="all">
+                <tgroup cols="3">
+                  <colspec colname="c1" colwidth="1*"/>
+                  <colspec colname="c2" colwidth="1*"/>
+                  <colspec colname="c3" colwidth="3*"/>
+                  <thead>
+                    <row>
+                      <entry><para>Name</para></entry>
+                      <entry><para>Type</para></entry>
+                      <entry><para>Description</para></entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row>
+                      <entry>Enabled</entry>
+                      <entry>xs:boolean</entry>
+                      <entry>Indicates if the SNMPv3 service is currently enabled on the Device.</entry>
+                    </row>
+                    <row>
+                      <entry>EngineID</entry>
+                      <entry>xs:hexBinary</entry>
+                      <entry>
+                        The SNMP Engine ID of the Device, as defined in <xref linkend="RFC3411"/>. This value is typically read-only after initial configuration or discovery by the SNMP engine itself.
+                        The Device <emphasis role="bold">should</emphasis> persist this EngineID across reboots.
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>ListeningPort</entry>
+                      <entry>xs:unsignedInt</entry>
+                      <entry>The UDP port number on which the SNMPv3 agent is listening. The default SNMP port is 161.</entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>faults</term>
+            <listitem>
+              <para role="text">No command specific faults defined.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>access class</term>
+            <listitem>
+              <para role="access">READ_SYSTEM</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+
+      <section xml:id="op.SetSNMPConfiguration">
+        <title>SetSNMPConfiguration</title>
+        <para>
+          This operation is used by a Client to enable or disable the SNMPv3 service and to configure its global parameters.
+          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+        </para>
+        <para>
+          Some parameters, like the <literal>EngineID</literal>, <emphasis role="bold">may</emphasis> not be settable by a Client after initial determination by the Device, or <emphasis role="bold">may</emphasis> only be settable under specific conditions (e.g., when the service is disabled). If an attempt is made to set a non-settable <literal>EngineID</literal>, the Device <emphasis role="bold">shall</emphasis> return a <literal>ter:SNMPEngineIDNotSettable</literal> fault.
+          If an optional parameter is not present in the request, the Device <emphasis role="bold">shall not</emphasis> change the current value of that parameter.
+        </para>
+        <variablelist role="op">
+          <varlistentry>
+            <term>request</term>
+            <listitem>
+              <para role="param">SNMPConfiguration [tt:SNMPConfiguration]</para>
+              <para role="text">The SNMPv3 service configuration to be applied. Fields within this structure are individually optional for the set operation.</para>
+              <informaltable frame="all">
+                <tgroup cols="4">
+                  <colspec colname="c1" colwidth="1*"/>
+                  <colspec colname="c2" colwidth="1*"/>
+                  <colspec colname="c3" colwidth="0.5*"/>
+                  <colspec colname="c4" colwidth="2.5*"/>
+                  <thead>
+                    <row>
+                      <entry>Name</entry>
+                      <entry>Type</entry>
+                      <entry>Attributes</entry>
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row>
+                      <entry>Enabled</entry>
+                      <entry>xs:boolean</entry>
+                      <entry>optional</entry>
+                      <entry>Enables or disables the SNMPv3 service. If not provided, the current enabled state is maintained.</entry>
+                    </row>
+                    <row>
+                      <entry>EngineID</entry>
+                      <entry>xs:hexBinary</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The SNMP Engine ID. The ability to set this <emphasis role="bold">may</emphasis> be restricted by the Device.
+                        If not provided, the current EngineID is maintained.
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>ListeningPort</entry>
+                      <entry>xs:unsignedInt</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The UDP port number for the SNMPv3 agent. If not provided, the current port is maintained.
+                        Valid port range is typically 1-65535.
+                      </entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>response</term>
+            <listitem>
+              <para role="text">This is an empty message.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>faults</term>
+            <listitem>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPPort</para>
+              <para role="text">The provided <literal>ListeningPort</literal> is outside the valid range or is otherwise unusable.</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPEngineID</para>
+              <para role="text">The provided <literal>EngineID</literal> is malformed or invalid according to <xref linkend="RFC3411"/>.</para>
+              <para role="param">env:Receiver - ter:ActionNotSupported - ter:SNMPEngineIDNotSettable</para>
+              <para role="text">The Device does not allow the <literal>EngineID</literal> to be set via this command, or under the current conditions.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>access class</term>
+            <listitem>
+              <para role="access">WRITE_SYSTEM</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+    </section>
+
+    <section xml:id="s.snmpv3_user_management">
+      <title>SNMPv3 User Management</title>
+      <para>
+        The Device <emphasis role="bold">shall</emphasis> support the management of SNMPv3 users, as defined in the User-based Security Model (USM) for SNMPv3 (<xref linkend="RFC3414"/>), via the following operations.
+        SNMPv3 user credentials (authentication and privacy keys) are distinct from ONVIF device user credentials.
+      </para>
+      <para>
+        The Device <emphasis role="bold">shall</emphasis> enforce unique SNMPv3 usernames.
+        The Device <emphasis role="bold">shall</emphasis> support configuration of at least one SNMPv3 user with the <literal>authPriv</literal> security level. The total number of SNMPv3 users supported by the Device is implementation-specific.
+      </para>
+
+      <section xml:id="op.AddSNMPUser">
+        <title>AddSNMPUser</title>
+        <para>
+          This operation adds a new SNMPv3 user to the Device's USM table.
+          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+        </para>
+        <para>
+          The request includes the username, authentication protocol and key, privacy protocol and key (if applicable), and the desired security level.
+          Keys <emphasis role="bold">shall</emphasis> be localized by the Device before use, as per <xref linkend="RFC3414"/>, Section A.2.
+        </para>
+        <variablelist role="op">
+          <varlistentry>
+            <term>request</term>
+            <listitem>
+              <para role="param">User [tt:SNMPUserConfiguration]</para>
+              <para role="text">The configuration for the new SNMPv3 user.</para>
+              <informaltable frame="all">
+                <tgroup cols="4">
+                  <colspec colname="c1" colwidth="1.5*"/>
+                  <colspec colname="c2" colwidth="1.5*"/>
+                  <colspec colname="c3" colwidth="0.5*"/>
+                  <colspec colname="c4" colwidth="3*"/>
+                  <thead>
+                    <row>
+                      <entry>Name</entry>
+                      <entry>Type</entry>
+                      <entry>Attributes</entry>
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row>
+                      <entry>Username</entry>
+                      <entry>tt:ReferenceToken</entry>
+                      <entry/>
+                      <entry>A unique username for the SNMPv3 user. Max length is 32 octets as per USM requirements.</entry>
+                    </row>
+                    <row>
+                      <entry>SecurityLevel</entry>
+                      <entry>tt:SNMPSecurityLevel</entry>
+                      <entry/>
+                      <entry>
+                        <para>The security level for this user:</para>
+                        <itemizedlist>
+                          <listitem>
+                            <para><literal>noAuthNoPriv</literal>: No authentication, no privacy</para>
+                          </listitem>
+                          <listitem>
+                            <para>
+                              <literal>authNoPriv</literal>: Authentication, no privacy. Requires <literal>AuthenticationProtocol</literal> and <literal>AuthenticationKey</literal>
+                            </para>
+                          </listitem>
+                          <listitem>
+                            <para>
+                              <literal>authPriv</literal>: Authentication and privacy. Requires <literal>AuthenticationProtocol</literal>, <literal>AuthenticationKey</literal>, <literal>PrivacyProtocol</literal>, and <literal>PrivacyKey</literal>
+                            </para>
+                          </listitem>
+                        </itemizedlist>
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>AuthenticationProtocol</entry>
+                      <entry>tt:SNMPAuthenticationProtocol</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The authentication protocol. Required if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.
+                        See Section <xref linkend="s.snmpv3_security_parameter_configuration"/> for supported protocols.
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>AuthenticationKey</entry>
+                      <entry>tt:BinaryData</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The authentication key, provided as base64-encoded binary data. Required if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.
+                        The length of the key depends on the chosen <literal>AuthenticationProtocol</literal>.
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>PrivacyProtocol</entry>
+                      <entry>tt:SNMPPrivacyProtocol</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The privacy protocol. Required if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.
+                        See Section <xref linkend="s.snmpv3_security_parameter_configuration"/> for supported protocols.
+                      </entry>
+                    </row>
+                    <row>
+                      <entry>PrivacyKey</entry>
+                      <entry>tt:BinaryData</entry>
+                      <entry>optional</entry>
+                      <entry>
+                        The privacy key, provided as base64-encoded binary data. Required if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.
+                        The length of the key depends on the chosen <literal>PrivacyProtocol</literal>.
+                      </entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>response</term>
+            <listitem>
+              <para role="text">This is an empty message.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>faults</term>
+            <listitem>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUserAlreadyExists</para>
+              <para role="text">An SNMP user with the specified <literal>Username</literal> already exists.</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:InvalidSNMPUsername</para>
+              <para role="text">The provided <literal>Username</literal> is invalid (e.g., too long, invalid characters).</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPInvalidKey</para>
+              <para role="text">
+                The provided <literal>AuthenticationKey</literal> or <literal>PrivacyKey</literal> is invalid for the chosen protocol (e.g., incorrect length, malformed).
+                This fault is also used if a required key is missing for the specified <literal>SecurityLevel</literal>.
+              </para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPAuthProtocolNotSupported</para>
+              <para role="text">The requested <literal>AuthenticationProtocol</literal> is not supported by the Device.</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPPrivProtocolNotSupported</para>
+              <para role="text">The requested <literal>PrivacyProtocol</literal> is not supported by the Device.</para>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUnsupportedSecurityLevel</para>
+              <para role="text">The combination of protocols for the specified <literal>SecurityLevel</literal> is not supported, or a required protocol was not specified.</para>
+              <para role="param">env:Receiver - ter:ActionNotSupported - ter:MaxSNMPUsersExceeded</para>
+              <para role="text">The Device cannot add another SNMP user as it has reached its maximum capacity.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>access class</term>
+            <listitem>
+              <para role="access">WRITE_SYSTEM</para> <!-- Or a more specific security admin class if one exists -->
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+
+      <section xml:id="op.DeleteSNMPUser">
+        <title>DeleteSNMPUser</title>
+        <para>
+          This operation removes an existing SNMPv3 user from the Device's USM table.
+          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+        </para>
+        <variablelist role="op">
+          <varlistentry>
+            <term>request</term>
+            <listitem>
+              <para role="param">Username [tt:ReferenceToken]</para>
+              <para role="text">The username of the SNMPv3 user to be deleted.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>response</term>
+            <listitem>
+              <para role="text">This is an empty message.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>faults</term>
+            <listitem>
+              <para role="param">env:Sender - ter:InvalidArgVal - ter:SNMPUserNotFound</para>
+              <para role="text">No SNMP user with the specified <literal>Username</literal> exists.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>access class</term>
+            <listitem>
+              <para role="access">WRITE_SYSTEM</para> <!-- Or a more specific security admin class -->
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+
+      <section xml:id="op.GetSNMPUsers">
+        <title>GetSNMPUsers</title>
+        <para>
+          This operation retrieves a list of all configured SNMPv3 users on the Device.
+          For security reasons, this operation <emphasis role="bold">shall not</emphasis> return authentication or privacy keys.
+          A Device supporting the SNMPv3 extension <emphasis role="bold">shall</emphasis> implement this command.
+        </para>
+        <variablelist role="op">
+          <varlistentry>
+            <term>request</term>
+            <listitem>
+              <para role="text">This is an empty message.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>response</term>
+            <listitem>
+              <para role="param">User - unbounded [tt:SNMPUser]</para>
+              <para role="text">A list of configured SNMPv3 users. If no users are configured, this list will be empty.</para>
+              <informaltable frame="all">
+                <tgroup cols="3">
+                  <colspec colname="c1" colwidth="1.5*"/>
+                  <colspec colname="c2" colwidth="1.5*"/>
+                  <colspec colname="c3" colwidth="3*"/>
+                  <thead>
+                    <row>
+                      <entry>Name</entry>
+                      <entry>Type</entry>
+                      <entry>Description</entry>
+                    </row>
+                  </thead>
+                  <tbody>
+                    <row>
+                      <entry>Username</entry>
+                      <entry>tt:ReferenceToken</entry>
+                      <entry>The unique username of the SNMPv3 user.</entry>
+                    </row>
+                    <row>
+                      <entry>SecurityLevel</entry>
+                      <entry>tt:SNMPSecurityLevel</entry>
+                      <entry>The security level configured for this user.</entry>
+                    </row>
+                    <row>
+                      <entry>AuthenticationProtocol</entry>
+                      <entry>tt:SNMPAuthenticationProtocol</entry>
+                      <entry>The authentication protocol configured for this user. Present if <literal>SecurityLevel</literal> is <literal>authNoPriv</literal> or <literal>authPriv</literal>.</entry>
+                    </row>
+                    <row>
+                      <entry>PrivacyProtocol</entry>
+                      <entry>tt:SNMPPrivacyProtocol</entry>
+                      <entry>The privacy protocol configured for this user. Present if <literal>SecurityLevel</literal> is <literal>authPriv</literal>.</entry>
+                    </row>
+                  </tbody>
+                </tgroup>
+              </informaltable>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>faults</term>
+            <listitem>
+              <para role="text">No command specific faults defined.</para>
+            </listitem>
+          </varlistentry>
+          <varlistentry>
+            <term>access class</term>
+            <listitem>
+              <para role="access">READ_SYSTEM</para>
+            </listitem>
+          </varlistentry>
+        </variablelist>
+      </section>
+    </section>
+
+    <section xml:id="s.snmpv3_security_parameter_configuration">
+      <title>Security Parameter Configuration</title>
+      <para>
+        This section details the requirements for authentication and privacy protocols supported by the SNMPv3 extension.
+        Devices <emphasis role="bold">shall</emphasis> securely store localized keys and apply them according to the user's configured security level.
+        Keys for authentication and privacy <emphasis role="bold">shall</emphasis> be provided by the Client as base64-encoded binary data using the <literal>tt:BinaryData</literal> type. The Device <emphasis role="bold">shall</emphasis> delocalize these keys using its EngineID as per SNMPv3 USM specifications (<xref linkend="RFC3414"/> Appendix A) before storing them internally.
+      </para>
+      <section xml:id="s.snmpv3_auth_protocols">
+        <title>Authentication Protocols</title>
+        <para>
+          The following authentication protocols <emphasis role="bold">shall</emphasis> be supported:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role="bold">HMAC-SHA-256:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC192SHA256AuthProtocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The authentication key length is 32 octets.
+            </para>
+          </listitem>
+        </itemizedlist>
+        <para>
+          Support for stronger authentication algorithms is <emphasis role="bold">RECOMMENDED</emphasis>:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role="bold">HMAC-SHA-384:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC256SHA384AuthProtocol</literal>). The authentication key length is 48 octets.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <emphasis role="bold">HMAC-SHA-512:</emphasis> As specified in <xref linkend="RFC7860"/> (OID: <literal>usmHMAC384SHA512AuthProtocol</literal>). The authentication key length is 64 octets.
+            </para>
+          </listitem>
+        </itemizedlist>
+        <para>
+          The corresponding <literal>tt:SNMPAuthenticationProtocol</literal> enumeration values would be <literal>HMAC_SHA_256</literal>, <literal>HMAC_SHA_384</literal>, and <literal>HMAC_SHA_512</literal>.
+        </para>
+      </section>
+      <section xml:id="s.snmpv3_priv_protocols">
+        <title>Privacy Protocols</title>
+        <para>
+          The following privacy protocols <emphasis role="bold">shall</emphasis> be supported:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role="bold">AES-128-CFB:</emphasis> As specified in <xref linkend="RFC3826"/> (OID: <literal>usmAesCfb128Protocol</literal>). This protocol is <emphasis role="bold">REQUIRED</emphasis>. The privacy key length is 16 octets.
+            </para>
+          </listitem>
+        </itemizedlist>
+<!--
+        <para>
+          Support for stronger privacy ciphers and modes is <emphasis role="bold">RECOMMENDED</emphasis>:
+        </para>
+        <itemizedlist>
+          <listitem>
+            <para>
+              <emphasis role="bold">AES-192-CFB / AES-256-CFB:</emphasis> As specified in <xref linkend="RFC3826"/> (OIDs: <literal>usmAesCfb192Protocol</literal>, <literal>usmAesCfb256Protocol</literal>). Key lengths are 24 and 32 octets respectively. Note: <xref linkend="RFC3826"/> originally defined these with placeholder OIDs; check for official assignments if implementing.
+            </para>
+          </listitem>
+          <listitem>
+            <para>
+              <emphasis role="bold">AES-GCM / AES-AEAD:</emphasis> Authenticated Encryption with Associated Data (AEAD) modes like AES-128-GCM, AES-192-GCM, AES-256-GCM as generally referenced by <xref linkend="RFC5116"/> and applied to SNMP in documents like <xref linkend="RFCDraftIETFNetmanAESGCM"/> (if standardized). These modes provide both confidentiality and integrity.
+            </para>
+          </listitem>
+        </itemizedlist>
+-->
+        <para>
+          The corresponding <literal>tt:SNMPPrivacyProtocol</literal> enumeration values would include <literal>AES_128_CFB</literal> <!--, and potentially others like <literal>AES_192_CFB</literal>, <literal>AES_256_CFB</literal>, etc.,--> based on Device support.
+        </para>
+      </section>
+    </section>
+    <!--
+    Placeholder for new ter: Fault subcodes:
+    ter:InvalidSNMPPort
+    ter:InvalidSNMPEngineID
+    ter:SNMPEngineIDNotSettable
+    ter:SNMPUserAlreadyExists
+    ter:InvalidSNMPUsername
+    ter:SNMPInvalidKey
+    ter:SNMPAuthProtocolNotSupported
+    ter:SNMPPrivProtocolNotSupported
+    ter:SNMPUnsupportedSecurityLevel
+    ter:MaxSNMPUsersExceeded
+    ter:SNMPUserNotFound
+    -->
+
+    <!--
+    Placeholder for new Normative References:
+    <bibliomixed xml:id="RFC3410">
+      <abbrev>RFC 3410</abbrev>
+      <citetitle pubwork="STANDARD">Introduction and Applicability Statements for Internet-Standard Management Framework</citetitle>
+      <authorgroup>
+        <author><personname>Case, J.</personname></author>
+        <author><personname>Mundul, D.</personname></author>
+        <author><personname>Partain, D.</personname></author>
+        <author><personname>Rose, M.</personname></author>
+      </authorgroup>
+      <publishername>IETF</publishername>
+      <pubdate>December 2002</pubdate>
+    </bibliomixed>
+    <bibliomixed xml:id="RFC3411">
+      <abbrev>RFC 3411</abbrev>
+      <citetitle pubwork="STANDARD">An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks</citetitle>
+      <editor><personname>Harrington, D.</personname></editor>
+      <editor><personname>Presuhn, R.</personname></editor>
+      <editor><personname>Wijnen, B.</personname></editor>
+      <publishername>IETF</publishername>
+      <pubdate>December 2002</pubdate>
+    </bibliomixed>
+    <bibliomixed xml:id="RFC3414">
+      <abbrev>RFC 3414</abbrev>
+      <citetitle pubwork="STANDARD">User-based Security Model (USM) for version 3 of the Simple Network Management Protocol (SNMPv3)</citetitle>
+      <authorgroup>
+        <author><personname>Blumenthal, U.</personname></author>
+        <author><personname>Wijnen, B.</personname></author>
+      </authorgroup>
+      <publishername>IETF</publishername>
+      <pubdate>December 2002</pubdate>
+    </bibliomixed>
+    <bibliomixed xml:id="RFC3826">
+      <abbrev>RFC 3826</abbrev>
+      <citetitle pubwork="PROPOSED STANDARD">The Advanced Encryption Standard (AES) Cipher Algorithm in the SNMP User-based Security Model</citetitle>
+      <authorgroup>
+        <author><personname>Blumenthal, U.</personname></author>
+        <author><personname>Maino, F.</personname></author>
+        <author><personname>McCloghrie, K.</personname></author>
+      </authorgroup>
+      <publishername>IETF</publishername>
+      <pubdate>June 2004</pubdate>
+    </bibliomixed>
+    <bibliomixed xml:id="RFC7860">
+      <abbrev>RFC 7860</abbrev>
+      <citetitle pubwork="PROPOSED STANDARD">HMAC-SHA-2 Authentication Protocols in the User-Based Security Model (USM) for SNMPv3</citetitle>
+      <authorgroup>
+        <author><personname>McGrew, D.</personname></author>
+        <author><personname>Bailey, S.</personname></author>
+        <author><personname>Curran, J.</personname></author>
+      </authorgroup>
+      <publishername>IETF</publishername>
+      <pubdate>April 2016</pubdate>
+    </bibliomixed>
+    <bibliomixed xml:id="RFC5116">
+      <abbrev>RFC 5116</abbrev>
+      <citetitle pubwork="INFORMATIONAL">An Interface and Algorithms for Authenticated Encryption</citetitle>
+      <authorgroup>
+        <author><personname>McGrew, D.</personname></author>
+      </authorgroup>
+      <publishername>IETF</publishername>
+      <pubdate>January 2008</pubdate>
+    </bibliomixed>
+    -->
+  </section>
+
     <section xml:id="_Ref474427788">
       <title>Security</title>
       <para>This section contains a set of security management operations. Such operations are sensitive to network attacks and shall be protected using appropriate authorization levels in order not to compromise the device.<emphasis></emphasis></para>
